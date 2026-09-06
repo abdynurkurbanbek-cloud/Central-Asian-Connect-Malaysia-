@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Asia Connect Malaysia | Connect. Create. Lead.</title>
+    <meta name="description" content="International youth organization connecting ambitious young people from Central Asia and Malaysia.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div id="progress-bar"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <span class="logo-accent">CA</span> Connect MY 🇲🇾
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#about" data-i18n="nav.about">About Us</a>
+                <a href="#news" data-i18n="nav.news">News & Events</a>
+                <a href="#achievements" data-i18n="nav.achievements">Achievements</a>
+                <a href="#departments" data-i18n="nav.departments">Departments</a>
+                <a href="#why-us" data-i18n="nav.whyUs">Why Join</a>
+                <a href="#contact" data-i18n="nav.contact">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="en">🇬🇧 EN</button>
+                    <button class="lang-btn" data-lang="ms">🇲🇾 BM</button>
+                    <button class="lang-btn" data-lang="kk">🇰🇿 ҚАЗ</button>
+                </div>
+
+                <button id="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <button id="admin-login-btn" title="Admin Portal" onclick="openAdminModal()">
+                    <i class="fa-solid fa-lock"></i>
+                </button>
+
+                <a href="#join" class="btn btn-primary nav-cta" data-i18n="btn.join">Join Us</a>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-bg-overlay"></div>
+        <div class="crescent-star-bg">
+            <div class="crescent"></div>
+            <div class="star">★</div>
+        </div>
+        <div class="container hero-content">
+            <div class="badge-pill">🇲🇾 Central Asia Connect Malaysia</div>
+            <h1 class="hero-title">CONNECT. CREATE. LEAD.</h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">
+                Connecting ambitious young minds from Central Asia and Malaysia to create meaningful projects and lead the future.
+            </p>
+            <div class="hero-btns">
+                <a href="#join" class="btn btn-accent btn-lg" data-i18n="btn.joinNow">Become a Member</a>
+                <a href="#about" class="btn btn-outline-light btn-lg" data-i18n="btn.learnMore">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Goal / Stats Bar -->
+    <section class="goal-bar">
+        <div class="container goal-container">
+            <div class="goal-text">
+                <span data-i18n="goal.title">🎯 Our Next Target:</span>
+                <strong>500+ Active Youth Members</strong>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width: 65%;">65%</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="about.title">Who We Are</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p class="lead-p" data-i18n="about.p1">
+                        We are not here just to create another youth community. We are here to build something that matters.
+                    </p>
+                    <p data-i18n="about.p2">
+                        Central Asia Connect Malaysia is a new international youth organization connecting ambitious young people from Central Asia and Malaysia.
+                    </p>
+                    <p data-i18n="about.p3">
+                        Our team brings rich experience from the <strong>Central Asian Youth Parliament</strong>!
+                    </p>
+                </div>
+                <div class="timeline-box">
+                    <h3 data-i18n="timeline.title">Our Journey</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="year">Phase 1</span>
+                            <h4>CA Youth Parliament</h4>
+                            <p data-i18n="timeline.p1">Building foundational experience through international forums.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="year">Phase 2</span>
+                            <h4>Regional Expansion</h4>
+                            <p data-i18n="timeline.p2">Opening representations in Kyrgyzstan.</p>
+                        </div>
+                        <div class="timeline-item active">
+                            <span class="year">NOW</span>
+                            <h4>Malaysia Connect 🇲🇾</h4>
+                            <p data-i18n="timeline.p3">Launching in Malaysia to bridge Central Asia and SEA youth leaders.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News & Announcements Section -->
+    <section id="news" class="section bg-light reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="news.title">News & Gallery</h2>
+            <p class="section-subtitle" data-i18n="news.subtitle">Latest updates and photos published by leadership</p>
+            
+            <div class="news-grid" id="public-news-feed">
+                <!-- Dynamic News Cards Inserted Here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="section reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="achievements.title">Our Track Record</h2>
+            <p class="section-subtitle" data-i18n="achievements.subtitle">What we have accomplished together before expanding</p>
+            
+            <div class="achievements-grid">
+                <div class="achieve-card">
+                    <div class="achieve-icon">🇰🇿</div>
+                    <p data-i18n="achieve.1">Partnered with the Ak Zhol Democratic Party</p>
+                </div>
+                <div class="achieve-card">
+                    <div class="achieve-icon">🏛️</div>
+                    <p data-i18n="achieve.2">Organized youth forums with institutional partners</p>
+                </div>
+                <div class="achieve-card">
+                    <div class="achieve-icon">🎓</div>
+                    <p data-i18n="achieve.3">Launched internship programs for youth</p>
+                </div>
+                <div class="achieve-card">
+                    <div class="achieve-icon">⚖️</div>
+                    <p data-i18n="achieve.4">Mock courts with Al-Farabi Kazakh National University</p>
+                </div>
+                <div class="achieve-card">
+                    <div class="achieve-icon">🤝</div>
+                    <p data-i18n="achieve.5">Youth initiatives with Akimat of Almaty</p>
+                </div>
+                <div class="achieve-card">
+                    <div class="achieve-icon">🤖</div>
+                    <p data-i18n="achieve.6">Completed 3 artificial intelligence projects</p>
+                </div>
+            </div>
+
+            <div class="counters-grid">
+                <div class="counter-box">
+                    <span class="counter" data-target="15">0</span>+
+                    <p data-i18n="counter.projects">Key Projects</p>
+                </div>
+                <div class="counter-box">
+                    <span class="counter" data-target="3">0</span>
+                    <p data-i18n="counter.countries">Countries Connected</p>
+                </div>
+                <div class="counter-box">
+                    <span class="counter" data-target="1000">0</span>+
+                    <p data-i18n="counter.participants">Youth Engaged</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Departments Section -->
+    <section id="departments" class="section bg-light reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="dept.title">Our Departments</h2>
+            <div class="departments-grid">
+                <div class="dept-card">
+                    <div class="dept-icon">🎥</div>
+                    <h3 data-i18n="dept.media.name">Department of Media</h3>
+                    <p data-i18n="dept.media.short">Content, social media, creative projects, and digital communications.</p>
+                </div>
+                <div class="dept-card">
+                    <div class="dept-icon">🌱</div>
+                    <h3 data-i18n="dept.ecology.name">Department of Ecology</h3>
+                    <p data-i18n="dept.ecology.short">Environmental initiatives, clean-up campaigns, and eco-awareness.</p>
+                </div>
+                <div class="dept-card">
+                    <div class="dept-icon">📰</div>
+                    <h3 data-i18n="dept.journalism.name">Department of Journalism</h3>
+                    <p data-i18n="dept.journalism.short">Interviews, reports, investigations, and storytelling.</p>
+                </div>
+                <div class="dept-card">
+                    <div class="dept-icon">🌍</div>
+                    <h3 data-i18n="dept.ir.name">International Relations</h3>
+                    <p data-i18n="dept.ir.short">International diplomacy, organizational partnerships, and cross-border relations.</p>
+                </div>
+                <div class="dept-card">
+                    <div class="dept-icon">🎓</div>
+                    <h3 data-i18n="dept.education.name">Department of Education</h3>
+                    <p data-i18n="dept.education.short">Educational projects, language courses, workshops, and knowledge sharing.</p>
+                </div>
+                <div class="dept-card">
+                    <div class="dept-icon">💼</div>
+                    <h3 data-i18n="dept.business.name">Department of Business</h3>
+                    <p data-i18n="dept.business.short">Entrepreneurship, startups, business development, and professional networking.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Join Us Section -->
+    <section id="why-us" class="section reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="why.title">Why Join Us?</h2>
+            <div class="why-grid">
+                <div class="why-item">
+                    <i class="fa-solid fa-circle-check check-icon"></i>
+                    <div>
+                        <h4 data-i18n="why.1.title">Real International Projects</h4>
+                        <p data-i18n="why.1.desc">Gain practical experience working on cross-border initiatives.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <i class="fa-solid fa-circle-check check-icon"></i>
+                    <div>
+                        <h4 data-i18n="why.2.title">Global Networking</h4>
+                        <p data-i18n="why.2.desc">Connect with ambitious peers, diplomats, and business mentors.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <i class="fa-solid fa-circle-check check-icon"></i>
+                    <div>
+                        <h4 data-i18n="why.3.title">Leadership Growth</h4>
+                        <p data-i18n="why.3.desc">Step into roles like project manager, journalist, or department lead.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <i class="fa-solid fa-circle-check check-icon"></i>
+                    <div>
+                        <h4 data-i18n="why.4.title">Create Your Own Ideas</h4>
+                        <p data-i18n="why.4.desc">We don't just assign tasks — we help you realize your own projects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join / Contact Form Section -->
+    <section id="join" class="section bg-primary text-white reveal">
+        <div class="container form-container">
+            <h2 class="section-title text-white" data-i18n="form.title">Ready to Make an Impact?</h2>
+            <p class="section-subtitle text-white-80" data-i18n="form.subtitle">Fill out the form below to become part of our team.</p>
+
+            <form id="membership-form" class="join-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName" data-i18n="form.name">Full Name</label>
+                        <input type="text" id="fullName" required placeholder="e.g. Aigerim / Amirul">
+                    </div>
+                    <div class="form-group">
+                        <label for="institution" data-i18n="form.institution">University / School</label>
+                        <input type="text" id="institution" required placeholder="e.g. APU / KazNU / Sunway / School #1">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email" data-i18n="form.email">Email Address</label>
+                        <input type="email" id="email" required placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" data-i18n="form.phone">Phone Number (WhatsApp)</label>
+                        <input type="tel" id="phone" required placeholder="+60123456789 / +77012345678">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telegram" data-i18n="form.telegram">Telegram Username</label>
+                        <input type="text" id="telegram" required placeholder="@username">
+                    </div>
+                    <div class="form-group">
+                        <label for="country" data-i18n="form.country">Country</label>
+                        <select id="country" required>
+                            <option value="">Select Country</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="dept" data-i18n="form.dept">Preferred Department</label>
+                    <select id="dept" required>
+                        <option value="">Select Department</option>
+                        <option value="Media">Media 🎥</option>
+                        <option value="Ecology">Ecology 🌱</option>
+                        <option value="Journalism">Journalism 📰</option>
+                        <option value="IR">International Relations 🌍</option>
+                        <option value="Education">Education 🎓</option>
+                        <option value="Business">Business 💼</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="motivation" data-i18n="form.motivation">Why do you want to join us?</label>
+                    <textarea id="motivation" rows="3" placeholder="Short description..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-accent btn-block" data-i18n="form.submit">Submit Application 🚀</button>
+            </form>
+
+            <div id="form-success" class="form-success-msg hidden">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3 data-i18n="form.successTitle">Application Submitted!</h3>
+                <p data-i18n="form.successMsg">Thank you for joining us. Our team will contact you shortly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container footer-content">
+            <div class="footer-info">
+                <h3>Central Asia Connect Malaysia</h3>
+                <p>CONNECT. CREATE. LEAD.</p>
+                <p>📍 Kuala Lumpur, Malaysia | Central Asia</p>
+            </div>
+            <div class="footer-socials">
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Central Asia Connect Malaysia. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Admin Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeAdminModal()">&times;</span>
+            
+            <div id="admin-login-view">
+                <h2>🔑 Admin Login Portal</h2>
+                <p style="margin-bottom:15px; color:var(--text-muted);">Enter password to access database and publishing tools.</p>
+                <div class="form-group">
+                    <input type="password" id="admin-password" placeholder="Enter Admin Password">
+                </div>
+                <button class="btn btn-primary btn-block" onclick="verifyAdmin()">Login</button>
+                <p id="admin-error" style="color:var(--primary-red); margin-top:10px; display:none;">Incorrect password!</p>
+            </div>
+
+            <div id="admin-dashboard-view" class="hidden">
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="switchAdminTab('applications')">📋 Applications & Contacts</button>
+                    <button class="tab-btn" onclick="switchAdminTab('news')">📰 Publish News & Photos</button>
+                </div>
+
+                <!-- Tab 1: Applications Database -->
+                <div id="tab-applications" class="tab-content active">
+                    <h3>Registered Member Contacts</h3>
+                    <div class="admin-actions-bar">
+                        <button class="btn btn-outline-light" style="color:#000; border-color:#ccc;" onclick="exportDataCSV()"><i class="fa-solid fa-download"></i> Export CSV</button>
+                        <button class="btn btn-primary" onclick="clearAllSubmissions()"><i class="fa-solid fa-trash"></i> Clear All Contacts</button>
+                    </div>
+
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Institution</th>
+                                    <th>Phone (WhatsApp)</th>
+                                    <th>Telegram</th>
+                                    <th>Country</th>
+                                    <th>Department</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab 2: News Publisher -->
+                <div id="tab-news" class="tab-content">
+                    <h3>Publish Announcement or Photos</h3>
+                    <form id="admin-news-form" onsubmit="handlePublishNews(event)">
+                        <div class="form-group">
+                            <label>Title / Headline</label>
+                            <input type="text" id="news-title" required placeholder="e.g. Welcome to Central Asia Connect Malaysia!">
+                        </div>
+                        <div class="form-group">
+                            <label>Content / Details</label>
+                            <textarea id="news-content" rows="4" required placeholder="Write news text here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Photo (Optional)</label>
+                            <input type="file" id="news-image" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-accent btn-block">Publish to Website 📢</button>
+                    </form>
+
+                    <h4 style="margin-top:25px;">Active News Items</h4>
+                    <div id="admin-news-list" class="admin-news-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating CTA Button -->
+    <a href="#join" id="floating-btn" class="floating-cta hidden" data-i18n="btn.join">Join Us 🚀</a>
+
+    <script src="script.js"></script>
+</body>
+</html>
