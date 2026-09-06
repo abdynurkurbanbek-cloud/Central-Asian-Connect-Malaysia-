@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Asia Connect Malaysia | Connect. Create. Lead.</title>
+    <meta name="description" content="International youth organization connecting ambitious young people from Central Asia and Malaysia.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary-blue: #010066;
+            --primary-red: #CC0001;
+            --accent-yellow: #FFCC00;
+            --white: #FFFFFF;
+            --bg-light: #F8F9FA;
+            --text-dark: #1A1A1A;
+            --text-muted: #6C757D;
+            --card-bg: #FFFFFF;
+            --border-color: #E0E0E0;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        [data-theme="dark"] {
+            --primary-blue: #020138;
+            --bg-light: #121212;
+            --text-dark: #F0F0F0;
+            --text-muted: #A0A0A0;
+            --card-bg: #1E1E1E;
+            --border-color: #333333;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        #progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(to right, var(--primary-red), var(--accent-yellow)); width: 0%; z-index: 1000; }
+
+        header { position: fixed; top: 0; width: 100%; background: rgba(1, 0, 102, 0.95); backdrop-filter: blur(8px); z-index: 999; padding: 15px 0; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { color: var(--white); font-size: 1.2rem; font-weight: 800; text-decoration: none; }
+        .logo-accent { color: var(--accent-yellow); }
+        .nav-links a { color: var(--white); text-decoration: none; margin: 0 10px; font-weight: 500; transition: var(--transition); }
+        .nav-links a:hover { color: var(--accent-yellow); }
+
+        .header-actions { display: flex; align-items: center; gap: 8px; }
+        .lang-btn { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: var(--white); padding: 4px 8px; font-size: 0.8rem; border-radius: 4px; cursor: pointer; }
+        .lang-btn.active { background: var(--primary-red); border-color: var(--primary-red); }
+        #theme-toggle, #admin-login-btn { background: transparent; border: none; color: var(--accent-yellow); font-size: 1.1rem; cursor: pointer; padding: 5px; }
+
+        .btn { display: inline-block; padding: 10px 22px; border-radius: 30px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: var(--transition); text-align: center; }
+        .btn-primary { background-color: var(--primary-red); color: var(--white); }
+        .btn-primary:hover { background-color: #a80001; }
+        .btn-accent { background-color: var(--accent-yellow); color: var(--primary-blue); }
+        .btn-accent:hover { background-color: #e6b800; }
+        .btn-outline-light { border: 2px solid var(--white); color: var(--white); background: transparent; }
+        .btn-outline-light:hover { background: var(--white); color: var(--primary-blue); }
+        .btn-lg { padding: 12px 30px; font-size: 1.1rem; }
+        .btn-block { width: 100%; margin-top: 10px; }
+
+        .hero-section { position: relative; background: linear-gradient(135deg, var(--primary-blue) 60%, var(--primary-red)); color: var(--white); padding: 160px 0 100px; text-align: center; }
+        .badge-pill { display: inline-block; background: rgba(255,255,255,0.15); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; margin-bottom: 15px; }
+        .hero-title { font-size: 3.5rem; font-weight: 900; margin-bottom: 15px; letter-spacing: 1px; }
+        .hero-subtitle { max-width: 700px; margin: 0 auto 30px; font-size: 1.2rem; opacity: 0.9; }
+        .hero-btns { display: flex; justify-content: center; gap: 15px; }
+
+        .goal-bar { background: var(--accent-yellow); color: var(--primary-blue); padding: 15px 0; font-weight: 600; }
+        .goal-container { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .progress-track { flex-grow: 1; background: rgba(0,0,0,0.1); border-radius: 10px; height: 20px; overflow: hidden; }
+        .progress-fill { background: var(--primary-red); color: white; font-size: 0.75rem; text-align: center; line-height: 20px; height: 100%; font-weight: bold; }
+
+        .section { padding: 80px 0; }
+        .bg-light { background-color: rgba(0, 0, 0, 0.02); }
+        .bg-primary { background-color: var(--primary-blue); }
+        .section-title { font-size: 2.2rem; text-align: center; margin-bottom: 10px; color: var(--primary-blue); font-weight: 800; }
+        [data-theme="dark"] .section-title { color: var(--accent-yellow); }
+        .section-subtitle { text-align: center; color: var(--text-muted); margin-bottom: 40px; }
+
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .news-card { background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .news-card img { width: 100%; height: 200px; object-fit: cover; }
+        .news-body { padding: 20px; }
+        .news-date { font-size: 0.75rem; color: var(--primary-red); font-weight: bold; margin-bottom: 5px; }
+        .news-title { font-size: 1.2rem; margin-bottom: 10px; color: var(--text-dark); }
+        .news-text { font-size: 0.9rem; color: var(--text-muted); }
+
+        .about-grid, .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+        .lead-p { font-size: 1.2rem; font-weight: 600; color: var(--primary-red); margin-bottom: 15px; }
+
+        .achievements-grid, .departments-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .achieve-card, .dept-card { background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; }
+        .achieve-icon, .dept-icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+        .counters-grid { display: flex; justify-content: space-around; text-align: center; }
+        .counter-box span { font-size: 3rem; font-weight: 800; color: var(--primary-red); }
+
+        .form-container { max-width: 750px; }
+        .join-form { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 12px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.1); }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 0.9rem; }
+        input, select, textarea { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.95); color: #000; }
+
+        .modal { display: none; position: fixed; z-index: 1001; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); }
+        .modal-content { background-color: var(--card-bg); margin: 3% auto; padding: 30px; border-radius: 12px; max-width: 850px; position: relative; color: var(--text-dark); max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; right: 20px; top: 15px; font-size: 1.8rem; cursor: pointer; }
+
+        .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .tab-btn { background: transparent; border: none; font-weight: bold; font-size: 1rem; cursor: pointer; padding: 8px 16px; color: var(--text-muted); }
+        .tab-btn.active { color: var(--primary-red); border-bottom: 2px solid var(--primary-red); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .admin-actions-bar { display: flex; justify-content: space-between; margin: 15px 0; }
+        .admin-table-wrapper { overflow-x: auto; max-height: 350px; }
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .admin-table th, .admin-table td { border: 1px solid var(--border-color); padding: 8px; text-align: left; }
+        .admin-table th { background: var(--bg-light); }
+
+        .admin-news-list { margin-top: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .admin-news-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; }
+
+        .floating-cta { position: fixed; bottom: 20px; right: 20px; background: var(--primary-red); color: white; padding: 12px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 998; }
+        .hidden { display: none !important; }
+
+        footer { background: #010044; color: white; padding: 40px 0 20px; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .footer-socials a { color: white; font-size: 1.5rem; margin-left: 15px; }
+        .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .about-grid, .why-grid, .form-row { grid-template-columns: 1fr; }
+            .hero-title { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress-bar"></div>
+
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <span class="logo-accent">CA</span> Connect MY 🇲🇾
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#about" data-i18n="nav.about">About Us</a>
+                <a href="#news" data-i18n="nav.news">News & Events</a>
+                <a href="#achievements" data-i18n="nav.achievements">Achievements</a>
+                <a href="#departments" data-i18n="nav.departments">Departments</a>
+                <a href="#why-us" data-i18n="nav.whyUs">Why Join</a>
+                <a href="#contact" data-i18n="nav.contact">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="en">🇬🇧 EN</button>
+                    <button class="lang-btn" data-lang="ms">🇲🇾 BM</button>
+                    <button class="lang-btn" data-lang="kk">🇰🇿 ҚАЗ</button>
+                </div>
+
+                <button id="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+
+                <button id="admin-login-btn" title="Admin Portal" onclick="openAdminModal()">
+                    <i class="fa-solid fa-lock"></i>
+                </button>
+
+                <a href="#join" class="btn btn-primary nav-cta" data-i18n="btn.join">Join Us</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="hero-section">
+        <div class="container hero-content">
+            <div class="badge-pill">🇲🇾 Central Asia Connect Malaysia</div>
+            <h1 class="hero-title">CONNECT. CREATE. LEAD.</h1>
+            <p class="hero-subtitle" data-i18n="hero.subtitle">
+                Connecting ambitious young minds from Central Asia and Malaysia to create meaningful projects and lead the future.
+            </p>
+            <div class="hero-btns">
+                <a href="#join" class="btn btn-accent btn-lg" data-i18n="btn.joinNow">Become a Member</a>
+                <a href="#about" class="btn btn-outline-light btn-lg" data-i18n="btn.learnMore">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="goal-bar">
+        <div class="container goal-container">
+            <div class="goal-text">
+                <span data-i18n="goal.title">🎯 Our Next Target:</span>
+                <strong>500+ Active Youth Members</strong>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width: 65%;">65%</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="about.title">Who We Are</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p class="lead-p" data-i18n="about.p1">
+                        We are not here just to create another youth community. We are here to build something that matters.
+                    </p>
+                    <p data-i18n="about.p2">
+                        Central Asia Connect Malaysia is a new international youth organization connecting ambitious young people from Central Asia and Malaysia.
+                    </p>
+                    <p data-i18n="about.p3">
+                        Our team brings rich experience from the <strong>Central Asian Youth Parliament</strong>!
+                    </p>
+                </div>
+                <div class="timeline-box" style="background:var(--card-bg); padding:20px; border-radius:12px; border:1px solid var(--border-color);">
+                    <h3 data-i18n="timeline.title" style="margin-bottom:15px;">Our Journey</h3>
+                    <div class="timeline">
+                        <div class="timeline-item" style="margin-bottom:10px;">
+                            <strong>Phase 1: CA Youth Parliament</strong>
+                            <p data-i18n="timeline.p1" style="font-size:0.85rem; color:var(--text-muted);">Building foundational experience through international forums.</p>
+                        </div>
+                        <div class="timeline-item" style="margin-bottom:10px;">
+                            <strong>Phase 2: Regional Expansion</strong>
+                            <p data-i18n="timeline.p2" style="font-size:0.85rem; color:var(--text-muted);">Opening representations in Kyrgyzstan.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <strong style="color:var(--primary-red);">NOW: Malaysia Connect 🇲🇾</strong>
+                            <p data-i18n="timeline.p3" style="font-size:0.85rem; color:var(--text-muted);">Launching in Malaysia to bridge Central Asia and SEA youth leaders.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="section bg-light reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="news.title">News & Gallery</h2>
+            <p class="section-subtitle" data-i18n="news.subtitle">Latest updates and photos published by leadership</p>
+            
+            <div class="news-grid" id="public-news-feed"></div>
+        </div>
+    </section>
+
+    <section id="achievements" class="section reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="achievements.title">Our Track Record</h2>
+            <p class="section-subtitle" data-i18n="achievements.subtitle">What we have accomplished together before expanding</p>
+            
+            <div class="achievements-grid">
+                <div class="achieve-card"><div class="achieve-icon">🇰🇿</div><p data-i18n="achieve.1">Partnered with the Ak Zhol Democratic Party</p></div>
+                <div class="achieve-card"><div class="achieve-icon">🏛️</div><p data-i18n="achieve.2">Organized youth forums with institutional partners</p></div>
+                <div class="achieve-card"><div class="achieve-icon">🎓</div><p data-i18n="achieve.3">Launched internship programs for youth</p></div>
+                <div class="achieve-card"><div class="achieve-icon">⚖️</div><p data-i18n="achieve.4">Mock courts with Al-Farabi Kazakh National University</p></div>
+                <div class="achieve-card"><div class="achieve-icon">🤝</div><p data-i18n="achieve.5">Youth initiatives with Akimat of Almaty</p></div>
+                <div class="achieve-card"><div class="achieve-icon">🤖</div><p data-i18n="achieve.6">Completed 3 artificial intelligence projects</p></div>
+            </div>
+
+            <div class="counters-grid">
+                <div class="counter-box"><span class="counter" data-target="15">0</span>+<p data-i18n="counter.projects">Key Projects</p></div>
+                <div class="counter-box"><span class="counter" data-target="3">0</span><p data-i18n="counter.countries">Countries Connected</p></div>
+                <div class="counter-box"><span class="counter" data-target="1000">0</span>+<p data-i18n="counter.participants">Youth Engaged</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="departments" class="section bg-light reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="dept.title">Our Departments</h2>
+            <div class="departments-grid">
+                <div class="dept-card"><div class="dept-icon">🎥</div><h3 data-i18n="dept.media.name">Department of Media</h3><p data-i18n="dept.media.short">Content, social media, creative projects, and digital communications.</p></div>
+                <div class="dept-card"><div class="dept-icon">🌱</div><h3 data-i18n="dept.ecology.name">Department of Ecology</h3><p data-i18n="dept.ecology.short">Environmental initiatives, clean-up campaigns, and eco-awareness.</p></div>
+                <div class="dept-card"><div class="dept-icon">📰</div><h3 data-i18n="dept.journalism.name">Department of Journalism</h3><p data-i18n="dept.journalism.short">Interviews, reports, investigations, and storytelling.</p></div>
+                <div class="dept-card"><div class="dept-icon">🌍</div><h3 data-i18n="dept.ir.name">International Relations</h3><p data-i18n="dept.ir.short">International diplomacy, organizational partnerships, and cross-border relations.</p></div>
+                <div class="dept-card"><div class="dept-icon">🎓</div><h3 data-i18n="dept.education.name">Department of Education</h3><p data-i18n="dept.education.short">Educational projects, language courses, workshops, and knowledge sharing.</p></div>
+                <div class="dept-card"><div class="dept-icon">💼</div><h3 data-i18n="dept.business.name">Department of Business</h3><p data-i18n="dept.business.short">Entrepreneurship, startups, business development, and professional networking.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-us" class="section reveal">
+        <div class="container">
+            <h2 class="section-title" data-i18n="why.title">Why Join Us?</h2>
+            <div class="why-grid">
+                <div class="why-item">
+                    <h4 data-i18n="why.1.title">Real International Projects</h4>
+                    <p data-i18n="why.1.desc">Gain practical experience working on cross-border initiatives.</p>
+                </div>
+                <div class="why-item">
+                    <h4 data-i18n="why.2.title">Global Networking</h4>
+                    <p data-i18n="why.2.desc">Connect with ambitious peers, diplomats, and business mentors.</p>
+                </div>
+                <div class="why-item">
+                    <h4 data-i18n="why.3.title">Leadership Growth</h4>
+                    <p data-i18n="why.3.desc">Step into roles like project manager, journalist, or department lead.</p>
+                </div>
+                <div class="why-item">
+                    <h4 data-i18n="why.4.title">Create Your Own Ideas</h4>
+                    <p data-i18n="why.4.desc">We don't just assign tasks — we help you realize your own projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="join" class="section bg-primary text-white reveal" style="color:white;">
+        <div class="container form-container" style="text-align:center;">
+            <h2 class="section-title" style="color:white;" data-i18n="form.title">Ready to Make an Impact?</h2>
+            <p class="section-subtitle" style="color:rgba(255,255,255,0.8);" data-i18n="form.subtitle">Fill out the form below to become part of our team.</p>
+
+            <form id="membership-form" class="join-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName" data-i18n="form.name">Full Name</label>
+                        <input type="text" id="fullName" required placeholder="e.g. Aigerim / Amirul">
+                    </div>
+                    <div class="form-group">
+                        <label for="institution" data-i18n="form.institution">University / School</label>
+                        <input type="text" id="institution" required placeholder="e.g. APU / KazNU / Sunway">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email" data-i18n="form.email">Email Address</label>
+                        <input type="email" id="email" required placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" data-i18n="form.phone">Phone Number (WhatsApp)</label>
+                        <input type="tel" id="phone" required placeholder="+60123456789 / +77012345678">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="telegram" data-i18n="form.telegram">Telegram Username</label>
+                        <input type="text" id="telegram" required placeholder="@username">
+                    </div>
+                    <div class="form-group">
+                        <label for="country" data-i18n="form.country">Country</label>
+                        <select id="country" required><option value="">Select Country</option></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="dept" data-i18n="form.dept">Preferred Department</label>
+                    <select id="dept" required>
+                        <option value="">Select Department</option>
+                        <option value="Media">Media 🎥</option>
+                        <option value="Ecology">Ecology 🌱</option>
+                        <option value="Journalism">Journalism 📰</option>
+                        <option value="IR">International Relations 🌍</option>
+                        <option value="Education">Education 🎓</option>
+                        <option value="Business">Business 💼</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="motivation" data-i18n="form.motivation">Why do you want to join us?</label>
+                    <textarea id="motivation" rows="3" placeholder="Short description..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-accent btn-block" data-i18n="form.submit">Submit Application 🚀</button>
+            </form>
+
+            <div id="form-success" class="form-success-msg hidden" style="background:rgba(255,255,255,0.1); padding:30px; border-radius:12px; margin-top:20px;">
+                <i class="fa-solid fa-circle-check" style="font-size:3rem; color:var(--accent-yellow); margin-bottom:10px;"></i>
+                <h3 data-i18n="form.successTitle">Application Submitted!</h3>
+                <p data-i18n="form.successMsg">Thank you for joining us. Our team will contact you shortly.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer">
+        <div class="container footer-content">
+            <div class="footer-info">
+                <h3>Central Asia Connect Malaysia</h3>
+                <p>CONNECT. CREATE. LEAD.</p>
+                <p>📍 Kuala Lumpur, Malaysia | Central Asia</p>
+            </div>
+            <div class="footer-socials">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Central Asia Connect Malaysia. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Admin Modal -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeAdminModal()">&times;</span>
+            
+            <div id="admin-login-view">
+                <h2>🔑 Admin Login Portal</h2>
+                <p style="margin-bottom:15px; color:var(--text-muted);">Enter password to access database and publishing tools.</p>
+                <div class="form-group">
+                    <input type="password" id="admin-password" placeholder="Enter Admin Password">
+                </div>
+                <button class="btn btn-primary btn-block" onclick="verifyAdmin()">Login</button>
+                <p id="admin-error" style="color:var(--primary-red); margin-top:10px; display:none;">Incorrect password!</p>
+            </div>
+
+            <div id="admin-dashboard-view" class="hidden">
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="switchAdminTab('applications')">📋 Applications & Contacts</button>
+                    <button class="tab-btn" onclick="switchAdminTab('news')">📰 Publish News & Photos</button>
+                </div>
+
+                <div id="tab-applications" class="tab-content active">
+                    <h3>Registered Member Contacts</h3>
+                    <div class="admin-actions-bar">
+                        <button class="btn btn-outline-light" style="color:#000; border-color:#ccc;" onclick="exportDataCSV()"><i class="fa-solid fa-download"></i> Export CSV</button>
+                        <button class="btn btn-primary" onclick="clearAllSubmissions()"><i class="fa-solid fa-trash"></i> Clear All Contacts</button>
+                    </div>
+
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Institution</th>
+                                    <th>Phone (WhatsApp)</th>
+                                    <th>Telegram</th>
+                                    <th>Country</th>
+                                    <th>Department</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-news" class="tab-content">
+                    <h3>Publish Announcement or Photos</h3>
+                    <form id="admin-news-form" onsubmit="handlePublishNews(event)">
+                        <div class="form-group">
+                            <label>Title / Headline</label>
+                            <input type="text" id="news-title" required placeholder="e.g. Welcome to Central Asia Connect Malaysia!">
+                        </div>
+                        <div class="form-group">
+                            <label>Content / Details</label>
+                            <textarea id="news-content" rows="4" required placeholder="Write news text here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Upload Photo (Optional)</label>
+                            <input type="file" id="news-image" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-accent btn-block">Publish to Website 📢</button>
+                    </form>
+
+                    <h4 style="margin-top:25px;">Active News Items</h4>
+                    <div id="admin-news-list" class="admin-news-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#join" id="floating-btn" class="floating-cta hidden" data-i18n="btn.join">Join Us 🚀</a>
+
+    <script>
+        const ADMIN_PASS = "gigagetAbdi11052009Alua";
+
+        const worldCountries = [
+            "Malaysia 🇲🇾", "Kazakhstan 🇰🇿", "Kyrgyzstan 🇰🇬", "Uzbekistan 🇺🇿", "Tajikistan 🇹🇯", "Turkmenistan 🇹🇲",
+            "Afghanistan", "Albania", "Algeria", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
+            "Belarus", "Belgium", "Brazil", "Brunei", "Bulgaria", "Canada", "China 🇨🇳", "Czech Republic", "Denmark",
+            "Egypt", "Finland", "France", "Georgia", "Germany", "Greece", "Hungary", "India 🇮🇳", "Indonesia 🇮🇩",
+            "Italy", "Japan 🇯🇵", "Jordan", "South Korea 🇰🇷", "Netherlands", "Norway", "Pakistan", "Poland",
+            "Qatar", "Saudi Arabia", "Singapore 🇸🇬", "Spain", "Sweden", "Switzerland", "Turkey", "UAE 🇦🇪",
+            "United Kingdom 🇬🇧", "United States 🇺🇸"
+        ];
+
+        const i18nData = {
+            en: {
+                "nav.about": "About Us", "nav.news": "News & Events", "nav.achievements": "Achievements", "nav.departments": "Departments", "nav.whyUs": "Why Join", "nav.contact": "Contact", "btn.join": "Join Us", "btn.joinNow": "Become a Member", "btn.learnMore": "Learn More",
+                "hero.subtitle": "Connecting ambitious young minds from Central Asia and Malaysia to create meaningful projects and lead the future.",
+                "goal.title": "🎯 Our Next Target:", "about.title": "Who We Are",
+                "about.p1": "We are not here just to create another youth community. We are here to build something that matters.",
+                "about.p2": "Central Asia Connect Malaysia connects ambitious young people from Central Asia and Malaysia.",
+                "about.p3": "Our team brings rich experience from the Central Asian Youth Parliament. Now in Malaysia! 🇲🇾",
+                "timeline.title": "Our Journey", "timeline.p1": "Building foundational experience.", "timeline.p2": "Opening representations in Kyrgyzstan.", "timeline.p3": "Launching in Malaysia.",
+                "news.title": "News & Gallery", "news.subtitle": "Latest updates and photos published by leadership",
+                "achievements.title": "Our Track Record", "achievements.subtitle": "What we have accomplished together before expanding",
+                "achieve.1": "Partnered with Ak Zhol Party 🇰🇿", "achieve.2": "Youth forums with institutional partners 🏛️", "achieve.3": "Internship programs 🎓", "achieve.4": "Mock courts with KazNU ⚖️", "achieve.5": "Initiatives with Akimat 🤝", "achieve.6": "Completed 3 AI projects 🤖",
+                "counter.projects": "Key Projects", "counter.countries": "Countries Connected", "counter.participants": "Youth Engaged",
+                "dept.title": "Our Departments", "dept.media.name": "Department of Media", "dept.media.short": "Content, social media, creative projects.", "dept.ecology.name": "Department of Ecology", "dept.ecology.short": "Environmental initiatives & eco-awareness.", "dept.journalism.name": "Department of Journalism", "dept.journalism.short": "Interviews, reports, investigations.", "dept.ir.name": "International Relations", "dept.ir.short": "International diplomacy & partnerships.", "dept.education.name": "Department of Education", "dept.education.short": "Language courses & workshops.", "dept.business.name": "Department of Business", "dept.business.short": "Startups & business networking.",
+                "why.title": "Why Join Us?", "why.1.title": "Real International Projects", "why.1.desc": "Practical experience on cross-border initiatives.", "why.2.title": "Global Networking", "why.2.desc": "Connect with peers, diplomats, and business mentors.", "why.3.title": "Leadership Growth", "why.3.desc": "Become a project lead or journalist.", "why.4.title": "Create Your Own Ideas", "why.4.desc": "We help you realize your own projects.",
+                "form.title": "Ready to Make an Impact?", "form.subtitle": "Fill out the form below to become part of our team.", "form.name": "Full Name", "form.institution": "University / School", "form.email": "Email Address", "form.phone": "Phone Number (WhatsApp)", "form.telegram": "Telegram Username", "form.country": "Country", "form.dept": "Preferred Department", "form.motivation": "Why do you want to join us?", "form.submit": "Submit Application 🚀", "form.successTitle": "Application Submitted!", "form.successMsg": "Thank you for joining us. Our team will contact you shortly."
+            },
+            ms: {
+                "nav.about": "Tentang Kami", "nav.news": "Berita & Galeri", "nav.achievements": "Pencapaian", "nav.departments": "Jabatan", "nav.whyUs": "Sertai Kami", "nav.contact": "Hubungi", "btn.join": "Sertai Kami", "btn.joinNow": "Jadi Ahli Sekarang", "btn.learnMore": "Ketahui Lebih Lanjut",
+                "hero.subtitle": "Menghubungkan belia berpotensi dari Asia Tengah dan Malaysia untuk membina projek bermakna.",
+                "goal.title": "🎯 Sasaran Seterusnya:", "about.title": "Siapa Kami", "about.p1": "Kami mahu membina sesuatu yang benar-benar memberi manfaat.", "about.p2": "Central Asia Connect Malaysia menghubungkan belia Asia Tengah dan Malaysia.", "about.p3": "Pasukan kami membawa pengalaman dari Central Asian Youth Parliament. Kini di Malaysia! 🇲🇾",
+                "timeline.title": "Perjalanan Kami", "timeline.p1": "Membina pengalaman awal.", "timeline.p2": "Membuka perwakilan di Kyrgyzstan.", "timeline.p3": "Melancarkan di Malaysia.",
+                "news.title": "Berita & Galeri", "news.subtitle": "Pengumuman dan gambar terkini dari pimpinan",
+                "achievements.title": "Pencapaian Kami", "achievements.subtitle": "Apa yang telah kami capai bersama", "achieve.1": "Bekerjasama dengan Parti Ak Zhol 🇰🇿", "achieve.2": "Forum belia 🏛️", "achieve.3": "Program internship 🎓", "achieve.4": "Simulasi mahkamah KazNU ⚖️", "achieve.5": "Inisiatif Akimat 🤝", "achieve.6": "3 projek AI 🤖",
+                "counter.projects": "Projek Utama", "counter.countries": "Negara Terhubung", "counter.participants": "Belia Terlibat",
+                "dept.title": "Jabatan Kami", "dept.media.name": "Department of Media", "dept.media.short": "Kandungan dan komunikasi digital.", "dept.ecology.name": "Department of Ecology", "dept.ecology.short": "Projek alam sekitar.", "dept.journalism.name": "Department of Journalism", "dept.journalism.short": "Kewartawanan & laporan.", "dept.ir.name": "International Relations", "dept.ir.short": "Diplomasi & kerjasama.", "dept.education.name": "Department of Education", "dept.education.short": "Pendidikan & bengkel.", "dept.business.name": "Department of Business", "dept.business.short": "Keusahawanan & startup.",
+                "why.title": "Kenapa Sertai Kami?", "why.1.title": "Projek Antarabangsa", "why.1.desc": "Pengalaman praktikal.", "why.2.title": "Rangkaian Global", "why.2.desc": "Hubungan dengan usahawan.", "why.3.title": "Kepimpinan", "why.3.desc": "Peluang memimpin.", "why.4.title": "Idea Sendiri", "why.4.desc": "Realisasikan projek anda.",
+                "form.title": "Bersedia Memberi Impak?", "form.subtitle": "Isi borang di bawah.", "form.name": "Nama Penuh", "form.institution": "Universiti / Sekolah", "form.email": "E-mel", "form.phone": "Nombor Telefon (WhatsApp)", "form.telegram": "Username Telegram", "form.country": "Negara", "form.dept": "Jabatan Pilihan", "form.motivation": "Mengapa anda mahu menyertai kami?", "form.submit": "Hantar Permohonan 🚀", "form.successTitle": "Permohonan Dihantar!", "form.successMsg": "Terima kasih. Pasukan kami akan menghubungi anda."
+            },
+            kk: {
+                "nav.about": "Біз туралы", "nav.news": "Жаңалықтар", "nav.achievements": "Жетістіктер", "nav.departments": "Департаменттер", "nav.whyUs": "Қосылу", "nav.contact": "Байланыс", "btn.join": "Қосылу", "btn.joinNow": "Мүше болу", "btn.learnMore": "Толығырақ",
+                "hero.subtitle": "Орталық Азия мен Малайзия жастарын біріктіріп, маңызды жобаларды жүзеге асыру.",
+                "goal.title": "🎯 Келесі мақсатымыз:", "about.title": "Біз кімбіз", "about.p1": "Біз қоғамға пайда әкелетін үлкен қозғалыс құру үшін жиналдық.", "about.p2": "Central Asia Connect Malaysia — халықаралық жастар ұйымы.", "about.p3": "Командамыз CA Youth Parliament аясында үлкен тәжірибе жинаған. Енді Малайзияда! 🇲🇾",
+                "timeline.title": "Біздің жолымыз", "timeline.p1": "Тәжірибе жинақтау.", "timeline.p2": "Қырғызстанда өкілдік ашу.", "timeline.p3": "Малайзияда бастау.",
+                "news.title": "Жаңалықтар мен Галерея", "news.subtitle": "Басшылық жариялаған соңғы хабарландырулар мен фотолар",
+                "achievements.title": "Жетістіктеріміз", "achievements.subtitle": "Атқарған жұмыстарымыз", "achieve.1": "«Ақ жол» партиясымен 🇰🇿", "achieve.2": "Жастар форумдары 🏛️", "achieve.3": "Тағылымдамалар 🎓", "achieve.4": "ҚазҰУ сот симуляциялары ⚖️", "achieve.5": "Әкімдікпен жобалар 🤝", "achieve.6": "3 AI жобасы 🤖",
+                "counter.projects": "Негізгі Жобалар", "counter.countries": "Біріккен Елдер", "counter.participants": "Қамтылған Жастар",
+                "dept.title": "Департаменттер", "dept.media.name": "Department of Media", "dept.media.short": "Медиа, креатив және SMM.", "dept.ecology.name": "Department of Ecology", "dept.ecology.short": "Экологиялық жобалар.", "dept.journalism.name": "Department of Journalism", "dept.journalism.short": "Журналистика және сұхбаттар.", "dept.ir.name": "International Relations", "dept.ir.short": "Халықаралық байланыстар.", "dept.education.name": "Department of Education", "dept.education.short": "Білім беру, тіл курстары.", "dept.business.name": "Department of Business", "dept.business.short": "Кәсіпкерлік және стартаптар.",
+                "why.title": "Неге бізге қосылу керек?", "why.1.title": "Нақты халықаралық жобалар", "why.1.desc": "Іс жүзінде тәжірибе жинаңыз.", "why.2.title": "Ғаламдық нетворкинг", "why.2.desc": "Сарапшылармен танысыңыз.", "why.3.title": "Көшбасшылық", "why.3.desc": "Жоба жетекшісі болыңыз.", "why.4.title": "Өз идеяңызды жүзеге асыру", "why.4.desc": "Біз сізге көмектесеміз.",
+                "form.title": "Өзгеріс жасауға дайынсыз ба?", "form.subtitle": "Анкетаны толтырыңыз.", "form.name": "Толық аты-жөніңіз", "form.institution": "Университет / Мектеп", "form.email": "Email поштаңыз", "form.phone": "Телефон нөміріңіз (WhatsApp)", "form.telegram": "Telegram юзернейміңіз", "form.country": "Еліңіз", "form.dept": "Департаментіңіз", "form.motivation": "Неліктен бізге қосылғыңыз келеді?", "form.submit": "Өтініш жіберу 🚀", "form.successTitle": "Өтініш қабылданды!", "form.successMsg": "Біз сізбен жақында хабарласамыз."
+            }
+        };
+
+        let currentLang = 'en';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateCountries();
+            initScrollProgress();
+            initScrollReveal();
+            initCounters();
+            initLanguageSwitcher();
+            initThemeToggle();
+            initForm();
+            initFloatingCTA();
+            renderPublicNewsFeed();
+        });
+
+        function populateCountries() {
+            const select = document.getElementById('country');
+            worldCountries.forEach(country => {
+                const opt = document.createElement('option');
+                opt.value = country;
+                opt.innerText = country;
+                select.appendChild(opt);
+            });
+        }
+
+        function initScrollProgress() {
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                document.getElementById("progress-bar").style.width = (winScroll / height) * 100 + "%";
+            });
+        }
+
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        function initCounters() {
+            let animated = false;
+            window.addEventListener('scroll', () => {
+                const section = document.getElementById('achievements');
+                if (!section) return;
+                if (section.getBoundingClientRect().top < window.innerHeight && !animated) {
+                    document.querySelectorAll('.counter').forEach(counter => {
+                        const target = +counter.getAttribute('data-target');
+                        let count = 0;
+                        const inc = target / 50;
+                        const update = () => {
+                            count += inc;
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count);
+                                setTimeout(update, 30);
+                            } else counter.innerText = target;
+                        };
+                        update();
+                    });
+                    animated = true;
+                }
+            });
+        }
+
+        function initLanguageSwitcher() {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentLang = btn.getAttribute('data-lang');
+                    updateTranslations();
+                });
+            });
+        }
+
+        function updateTranslations() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18nData[currentLang] && i18nData[currentLang][key]) {
+                    el.innerText = i18nData[currentLang][key];
+                }
+            });
+        }
+
+        function initThemeToggle() {
+            const themeBtn = document.getElementById('theme-toggle');
+            themeBtn.addEventListener('click', () => {
+                const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                themeBtn.innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            });
+        }
+
+        function initForm() {
+            const form = document.getElementById('membership-form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const submission = {
+                    id: Date.now(),
+                    fullName: document.getElementById('fullName').value,
+                    institution: document.getElementById('institution').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    telegram: document.getElementById('telegram').value,
+                    country: document.getElementById('country').value,
+                    dept: document.getElementById('dept').value,
+                    motivation: document.getElementById('motivation').value,
+                    date: new Date().toLocaleString()
+                };
+
+                let existing = JSON.parse(localStorage.getItem('cacm_submissions') || '[]');
+                existing.push(submission);
+                localStorage.setItem('cacm_submissions', JSON.stringify(existing));
+
+                confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 }, colors: ['#010066', '#CC0001', '#FFCC00'] });
+
+                form.classList.add('hidden');
+                document.getElementById('form-success').classList.remove('hidden');
+            });
+        }
+
+        function openAdminModal() {
+            document.getElementById('admin-modal').style.display = 'block';
+            document.getElementById('admin-login-view').classList.remove('hidden');
+            document.getElementById('admin-dashboard-view').classList.add('hidden');
+            document.getElementById('admin-password').value = '';
+            document.getElementById('admin-error').style.display = 'none';
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-modal').style.display = 'none';
+        }
+
+        function verifyAdmin() {
+            const pass = document.getElementById('admin-password').value;
+            if (pass === ADMIN_PASS) {
+                document.getElementById('admin-login-view').classList.add('hidden');
+                document.getElementById('admin-dashboard-view').classList.remove('hidden');
+                renderAdminApplicationsData();
+                renderAdminNewsList();
+            } else {
+                document.getElementById('admin-error').style.display = 'block';
+            }
+        }
+
+        function switchAdminTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            if (tabName === 'applications') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('tab-applications').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('tab-news').classList.add('active');
+            }
+        }
+
+        function renderAdminApplicationsData() {
+            const tbody = document.getElementById('admin-table-body');
+            const data = JSON.parse(localStorage.getItem('cacm_submissions') || '[]');
+            tbody.innerHTML = '';
+
+            if (data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No submissions stored yet.</td></tr>';
+                return;
+            }
+
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${item.fullName}</strong></td>
+                    <td>${item.institution}</td>
+                    <td><a href="https://wa.me/${item.phone.replace(/[^0-9]/g, '')}" target="_blank" style="color:var(--primary-red); font-weight:bold;">${item.phone}</a></td>
+                    <td><a href="https://t.me/${item.telegram.replace('@','')}" target="_blank">${item.telegram}</a></td>
+                    <td>${item.country}</td>
+                    <td><span style="background:#010066; color:#fff; padding:2px 8px; border-radius:10px; font-size:0.75rem;">${item.dept}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function clearAllSubmissions() {
+            if (confirm("Are you sure you want to delete all stored submissions and phone numbers?")) {
+                localStorage.removeItem('cacm_submissions');
+                renderAdminApplicationsData();
+            }
+        }
+
+        function exportDataCSV() {
+            const data = JSON.parse(localStorage.getItem('cacm_submissions') || '[]');
+            if (data.length === 0) return alert("No data to export!");
+
+            let csv = "ID,Full Name,Institution,Email,Phone,Telegram,Country,Department,Motivation,Date\n";
+            data.forEach(row => {
+                csv += `"${row.id}","${row.fullName}","${row.institution}","${row.email}","${row.phone}","${row.telegram}","${row.country}","${row.dept}","${row.motivation}","${row.date}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'CACM_Submissions.csv');
+            a.click();
+        }
+
+        function handlePublishNews(event) {
+            event.preventDefault();
+            const title = document.getElementById('news-title').value;
+            const content = document.getElementById('news-content').value;
+            const fileInput = document.getElementById('news-image');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    saveAndPublishNews(title, content, e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                saveAndPublishNews(title, content, null);
+            }
+        }
+
+        function saveAndPublishNews(title, content, imageUrl) {
+            const newsItem = {
+                id: Date.now(),
+                title: title,
+                content: content,
+                image: imageUrl || 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80',
+                date: new Date().toLocaleDateString()
+            };
+
+            let newsFeed = JSON.parse(localStorage.getItem('cacm_news') || '[]');
+            newsFeed.unshift(newsItem);
+            localStorage.setItem('cacm_news', JSON.stringify(newsFeed));
+
+            document.getElementById('admin-news-form').reset();
+            renderAdminNewsList();
+            renderPublicNewsFeed();
+            alert("News published successfully!");
+        }
+
+        function renderAdminNewsList() {
+            const newsList = document.getElementById('admin-news-list');
+            const newsFeed = JSON.parse(localStorage.getItem('cacm_news') || '[]');
+            newsList.innerHTML = '';
+
+            if (newsFeed.length === 0) {
+                newsList.innerHTML = '<p style="color:var(--text-muted);">No news published yet.</p>';
+                return;
+            }
+
+            newsFeed.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'admin-news-item';
+                div.innerHTML = `
+                    <div>
+                        <strong>${item.title}</strong>
+                        <p style="font-size:0.75rem; color:var(--text-muted);">${item.date}</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="deleteNews(${item.id})">Delete</button>
+                `;
+                newsList.appendChild(div);
+            });
+        }
+
+        function deleteNews(id) {
+            let newsFeed = JSON.parse(localStorage.getItem('cacm_news') || '[]');
+            newsFeed = newsFeed.filter(item => item.id !== id);
+            localStorage.setItem('cacm_news', JSON.stringify(newsFeed));
+            renderAdminNewsList();
+            renderPublicNewsFeed();
+        }
+
+        function renderPublicNewsFeed() {
+            const publicFeed = document.getElementById('public-news-feed');
+            const newsFeed = JSON.parse(localStorage.getItem('cacm_news') || '[]');
+            publicFeed.innerHTML = '';
+
+            if (newsFeed.length === 0) {
+                publicFeed.innerHTML = `
+                    <div class="news-card">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="News Image">
+                        <div class="news-body">
+                            <div class="news-date">SYSTEM ANNOUNCEMENT</div>
+                            <h3 class="news-title">Welcome to Central Asia Connect Malaysia!</h3>
+                            <p class="news-text">Our official portal is now live. Stay tuned for announcements and photo updates from our team!</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            newsFeed.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.innerHTML = `
+                    <img src="${item.image}" alt="News Photo">
+                    <div class="news-body">
+                        <div class="news-date">${item.date}</div>
+                        <h3 class="news-title">${item.title}</h3>
+                        <p class="news-text">${item.content}</p>
+                    </div>
+                `;
+                publicFeed.appendChild(card);
+            });
+        }
+
+        function initFloatingCTA() {
+            window.addEventListener('scroll', () => {
+                const btn = document.getElementById('floating-btn');
+                if (window.scrollY > 400) btn.classList.remove('hidden');
+                else btn.classList.add('hidden');
+            });
+        }
+    </script>
+</body>
+</html>
